@@ -1,7 +1,8 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "version": "{{env `GIT_TAG_NAME`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -20,5 +21,26 @@
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
     "ami_name": "Node-App-VirenM-{{timestamp}}"
-  }]
+  }],
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["./cookbooks"],
+      "run_list": ["node::default"]
+    },
+    {
+      "type" : "shell",
+      "inline": ["mkdir /home/ubuntu/app"]
+    },
+    {
+      "type": "file",
+      "source": "app/",
+      "destination": "/home/ubuntu/app"
+    },
+    {
+      "type": "shell",
+      "inline": ["cd /home/ubuntu/app", "npm install"]
+    }
+
+  ]
 }
