@@ -1,6 +1,5 @@
 # Install required plugins
 required_plugins = ["vagrant-hostsupdater", "vagrant-berkshelf"]
-# Include plugin for "vagrant-berkshelf"
 required_plugins.each do |plugin|
     unless Vagrant.has_plugin?(plugin)
       # User vagrant plugin manager to install plugin, which will automatically refresh plugin list afterwards
