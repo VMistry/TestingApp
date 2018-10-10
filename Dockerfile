@@ -3,11 +3,12 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install nginx -y
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app
+
+
+WORKDIR /home/ubuntu/app
+COPY package.json /home/ubuntu/app
 RUN npm install
-COPY . /usr/src/app
+COPY . /home/ubuntu/app
 EXPOSE 3000
 CMD [ “npm”, “start” ]
 
